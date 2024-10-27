@@ -8,14 +8,13 @@ st.set_page_config(page_title="Genetic Algorithm", layout="centered")
 st.markdown(
     """
     <style>
-    label {
-        color: black !important;
-        font-weight: bold;
-    }
-    <style>
     [data-testid="stAppViewContainer"] {
         background-color: #fefbd8;
         color: black;
+    }
+       label {
+        color: black !important;
+        font-weight: bold;
     }
     .header {
         font-size: 30px;
