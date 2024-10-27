@@ -13,7 +13,7 @@ POP_SIZE = 500
 #TARGET = 'Syabaha'
 TARGET = st.text_input("ENTER YOUR NAME")
 
-MUT_RATE = st.number_input("Enter your mutation rate", value=0.10, min_value=0.0, max_value=1.0, step=0.01)
+MUT_RATE = st.number_input("Enter your mutation rate", value=0.10, min_value=0.0, max_value=1.0, step=0.10)
 
 #GENES: Options from which our population would be created.
 GENES = ' abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
