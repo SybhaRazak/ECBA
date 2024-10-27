@@ -16,20 +16,6 @@ st.markdown(
         color: black !important;
         font-weight: bold;
     }
-    .header {
-        font-size: 30px;
-        font-weight: bold;
-        color: black;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-    .subheader {
-        font-size: 20px;
-        font-weight: normal;
-        color: black;
-        text-align: center;
-        margin-bottom: 15px;
-    }
     </style>
     """,
     unsafe_allow_html=True
