@@ -30,11 +30,11 @@ POP_SIZE = 500
 
 #TARGET: Our goal.
 #TARGET = 'Syabaha'
-TARGET = st.text_input("ENTER YOUR NAME")
+TARGET = st.text_input("<h1 style='color: black;'>Enter Your Name</h1>", unsafe_allow_html=True)
 
 #MUT_RATE: Rate at which our string will be changed.
 #MUT_RATE = 0.2
-MUT_RATE = st.number_input("Enter your mutation rate", value=0.10, min_value=0.0, max_value=1.0, step=0.10)
+MUT_RATE = st.number_input(("<h1 style='color: black;'>Enter Your Mutation Rate</h1>", unsafe_allow_html=True, value=0.10, min_value=0.0, max_value=1.0, step=0.10)
   
 #GENES: Options from which our population would be created.
 GENES = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
