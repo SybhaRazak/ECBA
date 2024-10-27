@@ -13,8 +13,6 @@ POP_SIZE = 500
 #TARGET = 'Syabaha'
 TARGET = st.text_input("ENTER YOUR NAME")
 
-import streamlit as st
-
 # Input fields for two numbers
 num1 = st.number_input("Enter first number:", value=0.0)
 num2 = st.number_input("Enter second number:", value=0.0)
@@ -23,8 +21,6 @@ num2 = st.number_input("Enter second number:", value=0.0)
 if st.button("Add"):
     result = num1 + num2
     st.write("The sum is:", result)
-))
-
 
 #GENES: Options from which our population would be created.
 GENES = ' abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
