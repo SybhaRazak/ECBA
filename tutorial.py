@@ -2,7 +2,7 @@ import streamlit as st
 
 # Set page configuration
 st.set_page_config(
-    page_title="Genetic Algorithm"
+    page_title="Genetic Algorithm";
     color: black;
 )
 
