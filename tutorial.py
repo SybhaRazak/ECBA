@@ -13,14 +13,19 @@ POP_SIZE = 500
 #TARGET = 'Syabaha'
 TARGET = st.text_input("ENTER YOUR NAME")
 
-# Input fields for two numbers
-num1 = st.number_input("Enter first number:", value=0.0)
-num2 = st.number_input("Enter second number:", value=0.0)
+# Initialize the counter variable
+if "counter" not in st.session_state:
+    st.session_state.counter = 0
 
-# Button to trigger the addition
-if st.button("Add"):
-    result = num1 + num2
-    st.write("The sum is:", result)
+# Display the current counter value
+st.write("Current value:", st.session_state.counter)
+
+# Buttons to increment or decrement the counter
+if st.button("+"):
+    st.session_state.counter += 1
+
+if st.button("-"):
+    st.session_state.counter -= 1
 
 #GENES: Options from which our population would be created.
 GENES = ' abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
