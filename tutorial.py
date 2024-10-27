@@ -35,7 +35,7 @@ st.markdown("<t1 style='color: black;'>Enter Your Name</t1>", unsafe_allow_html=
 TARGET = st.text_input("")
 
 # Styled header for mutation rate input
-st.markdown("<h1 style='color: black;'>Enter Your Mutation Rate</h1>", unsafe_allow_html=True)
+st.markdown("<t1 style='color: black;'>Enter Your Mutation Rate</t1>", unsafe_allow_html=True)
 MUT_RATE = st.number_input("", value=0.10, min_value=0.0, max_value=1.0, step=0.10)
 
   
