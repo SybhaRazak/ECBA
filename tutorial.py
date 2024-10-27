@@ -18,10 +18,8 @@ TARGET = st.text_input("ENTER YOUR NAME")
 MUT_RATE = st.number_input("Enter your mutation rate", value=0.10, min_value=0.0, max_value=1.0, step=0.10)
 
 # Button to calculate the progress
-if st.button("Calculate Progress"):
-    # Placeholder for your calculation logic
-    progress = MUT_RATE * 100  # Example calculation
-    st.write(f"The calculated progress is {progress}%.")
+if st.button("Calculate"):
+  
 
 #GENES: Options from which our population would be created.
 GENES = ' abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
