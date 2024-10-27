@@ -14,7 +14,7 @@ POP_SIZE = 500
 TARGET = st.text_input("Enter Your Name")
 
 # Enter mutation rate with a tooltip for more clarity
-MUT_RATE = st.number_input("Enter Your Mutation Rate", value=0.10, min_value=0.0, max_value=1.0, step=0.10)
+MUT_RATE = st.number_input("Enter Your Mutation Rate")
 
 #GENES: Options from which our population would be created.
 GENES = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
