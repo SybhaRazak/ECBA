@@ -1,31 +1,9 @@
 import streamlit as st
 
-
-import streamlit as st
 st.set_page_config(
  page_title="Genetic Algorithm"
 )
 st.header("Genetic Algorithm", divider="gray")
-# Custom CSS for background and text styling
-st.markdown(
-    """
-    <style>
-    [data-testid="stAppViewContainer"] {
-        background-color: #fefbd8;
-        color: black;
-    }
-       label {
-        color: black !important;
-        font-weight: bold;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-# Header and divider
-st.markdown("<div class='header'>Genetic Algorithm</div>", unsafe_allow_html=True)
-st.markdown("---")
 
 import random
 
