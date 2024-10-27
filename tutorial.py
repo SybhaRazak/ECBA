@@ -2,8 +2,7 @@ import streamlit as st
 
 # Set page configuration
 st.set_page_config(
-    page_title="Genetic Algorithm";
-    color: black;
+    page_title="Genetic Algorithm"
 )
 
 # Custom CSS to change the background color
@@ -20,7 +19,7 @@ st.markdown(
 )
 
 # Header with a divider
-st.header("Genetic Algorithm")
+st.header("Genetic Algorithm",  color: black; )
 st.markdown("---")
 
 
