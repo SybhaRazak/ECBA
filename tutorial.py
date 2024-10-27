@@ -31,7 +31,7 @@ POP_SIZE = 500
 import streamlit as st
 
 # Styled header for name input
-st.markdown("<h1 style='color: black;'>Enter Your Name</h1>", unsafe_allow_html=True)
+st.markdown("<t1 style='color: black;'>Enter Your Name</t1>", unsafe_allow_html=True)
 TARGET = st.text_input("")
 
 # Styled header for mutation rate input
