@@ -9,9 +9,10 @@ import random
 #POP_SIZE: Number of Chromosomes in our list.
 POP_SIZE = 500
 
-#MUT_RATE: Rate at which our string will be changed.
-#MUT_RATE = 0.2
-MUT_RATE = st.text_input("0.00")
+
+# MUT_RATE: Rate at which our string will be changed.
+MUT_RATE = float(st.text_input("Enter mutation rate:", "0.00"))
+
 
 #TARGET: Our goal.
 #TARGET = 'Syabaha'
