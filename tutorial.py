@@ -1,5 +1,11 @@
 import streamlit as st
 
+# Set page configuration
+st.set_page_config(
+    page_title="Genetic Algorithm"
+)
+
+# Custom CSS to change the background color
 st.markdown(
     """
     <style>
@@ -11,10 +17,10 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.set_page_config(
- page_title="Genetic Algorithm"
-)
-st.header("Genetic Algorithm", divider="gray")
+# Header with a divider
+st.header("Genetic Algorithm")
+st.markdown("---")
+
 
 import random
 
