@@ -1,4 +1,16 @@
 import streamlit as st
+
+st.markdown(
+    """
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-color: #fefbd8;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 st.set_page_config(
  page_title="Genetic Algorithm"
 )
