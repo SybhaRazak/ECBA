@@ -11,6 +11,7 @@ st.markdown(
     <style>
     [data-testid="stAppViewContainer"] {
         background-color: #fefbd8;
+        color: black;
     }
     </style>
     """,
