@@ -13,18 +13,7 @@ POP_SIZE = 500
 #TARGET = 'Syabaha'
 TARGET = st.text_input("ENTER YOUR NAME")
 
-# Set the initial mutation rate
-MUT_RATE = float(st.text_input("Enter mutation rate:", "0.00"))
-
-# Display buttons for increasing and decreasing the mutation rate
-if st.button("+"):
-    MUT_RATE += 0.1  # Increase by 0.1 (adjust this step if needed)
-elif st.button("-"):
-    MUT_RATE = max(0, MUT_RATE - 0.1)  # Decrease by 0.1, with a minimum of 0
-
-# Display the current mutation rate
-st.write(f"Current mutation rate: {MUT_RATE}")
-
+MUT_RATE = st.number_input("Enter your mutation rate", value=0.10, min_value=0.0, max_value=1.0, step=0.01)
 
 #GENES: Options from which our population would be created.
 GENES = ' abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
