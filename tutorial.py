@@ -13,19 +13,18 @@ POP_SIZE = 500
 #TARGET = 'Syabaha'
 TARGET = st.text_input("ENTER YOUR NAME")
 
-# Initialize the counter variable
-if "counter" not in st.session_state:
-    st.session_state.counter = 0
+# Set the initial mutation rate
+MUT_RATE = float(st.text_input("Enter mutation rate:", "0.00"))
 
-# Display the current counter value
-st.write("Current value:", st.session_state.counter)
-
-# Buttons to increment or decrement the counter
+# Display buttons for increasing and decreasing the mutation rate
 if st.button("+"):
-    st.session_state.counter += 1
+    MUT_RATE += 0.1  # Increase by 0.1 (adjust this step if needed)
+elif st.button("-"):
+    MUT_RATE = max(0, MUT_RATE - 0.1)  # Decrease by 0.1, with a minimum of 0
 
-if st.button("-"):
-    st.session_state.counter -= 1
+# Display the current mutation rate
+st.write(f"Current mutation rate: {MUT_RATE}")
+
 
 #GENES: Options from which our population would be created.
 GENES = ' abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
