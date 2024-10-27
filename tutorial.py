@@ -1,9 +1,11 @@
 import streamlit as st
 
 
-# Set page configuration
-st.set_page_config("Genetic Algorithm")
-
+import streamlit as st
+st.set_page_config(
+ page_title="Genetic Algorithm"
+)
+st.header("Genetic Algorithm", divider="gray")
 # Custom CSS for background and text styling
 st.markdown(
     """
