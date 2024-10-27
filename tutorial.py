@@ -28,13 +28,16 @@ import random
 #POP_SIZE: Number of Chromosomes in our list.
 POP_SIZE = 500
 
-#TARGET: Our goal.
-#TARGET = 'Syabaha'
-TARGET = st.text_input("<h1 style='color: black;'>Enter Your Name</h1>", unsafe_allow_html=True)
+import streamlit as st
 
-#MUT_RATE: Rate at which our string will be changed.
-#MUT_RATE = 0.2
-MUT_RATE = st.number_input(("<h1 style='color: black;'>Enter Your Mutation Rate</h1>", value=0.10, min_value=0.0, max_value=1.0, step=0.10)
+# Styled header for name input
+st.markdown("<h1 style='color: black;'>Enter Your Name</h1>", unsafe_allow_html=True)
+TARGET = st.text_input("")
+
+# Styled header for mutation rate input
+st.markdown("<h1 style='color: black;'>Enter Your Mutation Rate</h1>", unsafe_allow_html=True)
+MUT_RATE = st.number_input("", value=0.10, min_value=0.0, max_value=1.0, step=0.10)
+
   
 #GENES: Options from which our population would be created.
 GENES = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
