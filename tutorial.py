@@ -16,12 +16,12 @@ TARGET = st.text_input("ENTER YOUR NAME")
 #MUT_RATE: Rate at which our string will be changed.
 #MUT_RATE = 0.2
 MUT_RATE = st.number_input("Enter your mutation rate", value=0.10, min_value=0.0, max_value=1.0, step=0.10)
-
-# Button to calculate the progress
-st.button("Calculate")
   
 #GENES: Options from which our population would be created.
 GENES = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+# Button to calculate the progress
+st.button("Calculate")
 #initialization
 
 def initialize_pop(TARGET):
