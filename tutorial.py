@@ -19,7 +19,7 @@ st.markdown(
 )
 
 # Header with a divider
-st.header("Genetic Algorithm",  color: black; )
+st.markdown("<h1 style='color: black;'>Genetic Algorithm</h1>", unsafe_allow_html=True)
 st.markdown("---")
 
 
