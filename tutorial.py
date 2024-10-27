@@ -1,11 +1,10 @@
 import streamlit as st
 
-# Set page configuration
-st.set_page_config(
-    page_title="Genetic Algorithm"
-)
 
-# Custom CSS to change the background color
+# Set page configuration
+st.set_page_config(page_title="Genetic Algorithm", layout="centered")
+
+# Custom CSS for background and text styling
 st.markdown(
     """
     <style>
@@ -13,14 +12,42 @@ st.markdown(
         background-color: #fefbd8;
         color: black;
     }
+    .header {
+        font-size: 30px;
+        font-weight: bold;
+        color: black;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .subheader {
+        font-size: 20px;
+        font-weight: normal;
+        color: black;
+        text-align: center;
+        margin-bottom: 15px;
+    }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# Header with a divider
-st.markdown("<h1 style='color: black;'>Genetic Algorithm</h1>", unsafe_allow_html=True)
+# Header and divider
+st.markdown("<div class='header'>Genetic Algorithm</div>", unsafe_allow_html=True)
 st.markdown("---")
+
+# Input section for user to enter their name (TARGET) and mutation rate (MUT_RATE)
+st.markdown("<div class='subheader'>Enter Details Below</div>", unsafe_allow_html=True)
+
+# Enter name
+TARGET = st.text_input("Enter Your Name")
+
+# Enter mutation rate with a tooltip for more clarity
+MUT_RATE = st.number_input("Enter Your Mutation Rate", value=0.10, min_value=0.0, max_value=1.0, step=0.10, help="Set the rate at which mutation occurs (between 0 and 1).")
+
+# Display entered details as output
+st.markdown("<div class='subheader'>Your Inputs</div>", unsafe_allow_html=True)
+st.write(f"Target Name: {TARGET}")
+st.write(f"Mutation Rate: {MUT_RATE}")
 
 
 import random
