@@ -16,7 +16,7 @@ cities_names = ["Gliwice", "Cairo", "Rome", "Krakow", "Paris", "Alexandria", "Be
 city_coords = dict(zip(cities_names, zip(x, y)))
 
 # Input Parameters
-city_name = st.text_input("Enter Your Name")
+city_name = st.text_input("Enter Your City Name")
 city_x = st.number_input("X Coordinate", value=0, min_value=-2, max_value=16)
 city_y = st.number_input("Y Coordinate", value=0,min_value=-2, max_value=16)
 n_population = st.number_input("Population Size", value=0, min_value=0, max_value=250)
