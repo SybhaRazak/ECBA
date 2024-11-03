@@ -6,8 +6,11 @@ import pandas as pd
 import seaborn as sns
 import streamlit as st
 
-# Streamlit Title
-st.title("Traveling Salesman Problem")
+st.set_page_config(
+ page_title="Traveling Salesman Problem"
+)
+st.header("Traveling Salesman Problem", divider="gray")
+
 
 # Coordinates of Cities
 x = [0,3,6,7,15,10,16,5,8,1.5]
