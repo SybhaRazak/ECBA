@@ -12,6 +12,8 @@ st.title("Traveling Salesman Problem")
 # Coordinates of Cities
 x = [0,3,6,7,15,10,16,5,8,1.5]
 y = [1,2,1,4.5,-1,2.5,11,6,9,12]
+city_x = st.number_input("X Coordinate", value=0.0)
+city_y = st.number_input("Y Coordinate", value=0.0)
 cities_names = ["Gliwice", "Cairo", "Rome", "Krakow", "Paris", "Alexandria", "Berlin", "Tokyo", "Rio", "Budapest"]
 city_coords = dict(zip(cities_names, zip(x, y)))
 
