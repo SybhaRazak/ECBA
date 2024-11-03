@@ -28,7 +28,7 @@ mutation_per = 0.2
 n_generations = 200
 
 # Button to Start GA
-st.button("Find The Best Route")
+st.button("Find The Route")
 
 # Pastel Palette
 colors = sns.color_palette("pastel", len(cities_names))
