@@ -17,12 +17,12 @@ city_coords = dict(zip(cities_names, zip(x, y)))
 
 # Input Parameters
 city_name = st.text_input("Enter Your City Name")
-city_x = st.number_input("X Coordinate", value=0, min_value=-2, max_value=16)
-city_y = st.number_input("Y Coordinate", value=0,min_value=-2, max_value=16)
-n_population = st.number_input("Population Size", value=0, min_value=0, max_value=250)
-crossover_per = st.number_input("Crossover Percentage", value=0.00, min_value=0.0, max_value=1.0, step=0.10)
-mutation_per = st.number_input("Mutation Percentage", value=0.00, min_value=0.0, max_value=1.0, step=0.10)
-n_generations = st.number_input("Number of Generations", value=0, min_value=0, max_value=200)
+city_x = st.number_input("X Coordinate", value=0, min_value=0, max_value=16)
+city_y = st.number_input("Y Coordinate", value=0,min_value=-2, max_value=12)
+n_population = 250
+crossover_per = 0.8
+mutation_per = 0.2
+n_generations = 200
 
 # Button to Start GA
 st.button("Find The Best Route")
