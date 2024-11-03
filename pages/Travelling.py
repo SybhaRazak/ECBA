@@ -12,17 +12,17 @@ st.title("Traveling Salesman Problem")
 # Coordinates of Cities
 x = [0,3,6,7,15,10,16,5,8,1.5]
 y = [1,2,1,4.5,-1,2.5,11,6,9,12]
-city_x = st.number_input("X Coordinate", value=0.0)
-city_y = st.number_input("Y Coordinate", value=0.0)
 cities_names = ["Gliwice", "Cairo", "Rome", "Krakow", "Paris", "Alexandria", "Berlin", "Tokyo", "Rio", "Budapest"]
 city_coords = dict(zip(cities_names, zip(x, y)))
 
 # Input Parameters
 city_name = st.text_input("Enter Your Name")
+city_x = st.number_input("X Coordinate", value=0, min_value=-2, max_value=16)
+city_y = st.number_input("Y Coordinate", value=0,min_value=-2, max_value=16)
 n_population = st.number_input("Population Size", value=0, min_value=0, max_value=250)
-crossover_per = st.number_input("Crossover Percentage", value=0.10, min_value=0.0, max_value=1.0, step=0.10)
-mutation_per = st.number_input("Mutation Percentage", value=0.10, min_value=0.0, max_value=1.0, step=0.10)
-n_generations = st.number_input("Number of Generations", value=200)
+crossover_per = st.number_input("Crossover Percentage", value=0.00, min_value=0.0, max_value=1.0, step=0.10)
+mutation_per = st.number_input("Mutation Percentage", value=0.00, min_value=0.0, max_value=1.0, step=0.10)
+n_generations = st.number_input("Number of Generations", value=0, min_value=0, max_value=200)
 
 # Button to Start GA
 st.button("Find The Best Route")
