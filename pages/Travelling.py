@@ -12,12 +12,12 @@ x = [0,3,6,7,15,10,16,5,8,1.5]
 y = [1,2,1,4.5,-1,2.5,11,6,9,12]
 cities_names = ["Gliwice", "Cairo", "Rome", "Krakow", "Paris", "Alexandria", "Berlin", "Tokyo", "Rio", "Budapest"]
 
-city_name = st.text_input ("Enter Your City")
+city_name = st.text_input("Enter Your City")
 city_coords = dict(zip(cities_names, zip(x, y)))
-n_population = 250
-crossover_per = 0.8
-mutation_per = 0.2
-n_generations = 200
+n_population = st.number_input("Population Size", value=250)
+crossover_per = st.number_input("Crossover Percentage", value=0.0)
+mutation_per = st.number_input("Mutation Percentage", value=0.0)
+n_generations = st.number_input("Number of Generations", value=200)
 
 # Pastel Pallete
 colors = sns.color_palette("pastel", len(cities_names))
