@@ -8,8 +8,11 @@ import pandas as pd
 import seaborn as sns
 import streamlit as st
 
+st.title("Traveling Salesman Problem using Genetic Algorithm")
+
 x = [0,3,6,7,15,10,16,5,8,1.5]
 y = [1,2,1,4.5,-1,2.5,11,6,9,12]
+
 cities_names = ["Gliwice", "Cairo", "Rome", "Krakow", "Paris", "Alexandria", "Berlin", "Tokyo", "Rio", "Budapest"]
 city_name = st.text_input("Enter Your Name")
 city_coords = dict(zip(cities_names, zip(x, y)))
@@ -17,6 +20,8 @@ n_population = st.number_input("Population Size", value=250)
 crossover_per = st.number_input("Crossover Percentage", value=0.0)
 mutation_per = st.number_input("Mutation Percentage", value=0.0)
 n_generations = st.number_input("Number of Generations", value=200)
+
+st.button("Find The Best Route")
 
 # Pastel Pallete
 colors = sns.color_palette("pastel", len(cities_names))
@@ -53,7 +58,7 @@ for i, (city, (city_x, city_y)) in enumerate(city_coords.items()):
             ax.plot([city_x, other_x], [city_y, other_y], color='gray', linestyle='-', linewidth=1, alpha=0.1)
 
 fig.set_size_inches(16, 12)
-st.pyplot(fig)
+#st.pyplot(fig)
 
 #population
 def initial_population(cities_list, n_population = 250):
