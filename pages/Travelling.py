@@ -7,7 +7,7 @@ import seaborn as sns
 import streamlit as st
 
 # Streamlit Title
-st.title("Traveling Salesman Problem using Genetic Algorithm")
+st.title("Traveling Salesman Problem")
 
 # Coordinates of Cities
 x = [0,3,6,7,15,10,16,5,8,1.5]
