@@ -140,13 +140,15 @@ if submit_button and len(city_coords) == len(default_city_names):
 fig, ax = plt.subplots()
 
 # Draw each city, its icon, and label
+# Ensure color exists for each city
 for i, (city, (city_x, city_y)) in enumerate(city_coords.items()):
-    color = colors[i]
+    color = colors[i % len(colors)]  # Use modulo to avoid index errors
     icon = city_icons.get(city, "")  # Get the icon if it exists, or default to an empty string
     ax.scatter(city_x, city_y, c=[color], s=1200, zorder=2)
     ax.annotate(icon, (city_x, city_y), fontsize=40, ha='center', va='center', zorder=3)
     ax.annotate(city, (city_x, city_y), fontsize=12, ha='center', va='bottom', xytext=(0, -30),
                 textcoords='offset points')
+
 
     # Connect cities with opaque lines
     for j, (other_city, (other_x, other_y)) in enumerate(city_coords.items()):
