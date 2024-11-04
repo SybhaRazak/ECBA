@@ -5,6 +5,12 @@ import numpy as np
 import seaborn as sns
 import streamlit as st
 
+
+st.set_page_config(
+ page_title="Genetic Algorithm"
+)
+st.header("Genetic Algorithm", divider="gray")
+
 # Initial parameters
 n_population = 250
 crossover_per = 0.8
