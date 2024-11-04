@@ -19,8 +19,8 @@ with st.form("city_input_form"):
     for i in range(num_cities):
         col1, col2, col3 = st.columns([1, 1, 1])
         city_name = col1.text_input(f"City {i + 1}", f"City_{i + 1}")
-        x_coord = col2.number_input(f"x-coordinate (City {i + 1})", key=f"x_{i}", step=1.0)
-        y_coord = col3.number_input(f"y-coordinate (City {i + 1})", key=f"y_{i}", step=1.0)
+        x_coord = col2.number_input(f"x-coordinate (City {i + 1})", key=f"x_{i}", step=1)
+        y_coord = col3.number_input(f"y-coordinate (City {i + 1})", key=f"y_{i}", step=1)
         
         # Store each city's coordinates
         city_coords[city_name] = (x_coord, y_coord)
