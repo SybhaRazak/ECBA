@@ -23,8 +23,7 @@ default_city_names = ["Putrajaya", "Johor", "Perlis", "Negeri Sembilan", "Bedong
 # Set up Streamlit form for city names and coordinates input
 city_coords = {}
 
-with st.form("city_coords_form"):
-    st.write("Enter the city names and coordinates for 10 city :")
+st.write("Enter the city names and coordinates for 10 city :")
     for i, city in enumerate(default_city_names):
         col1, col2, col3 = st.columns([1, 1, 1])
         city_name = col1.text_input(f"Enter name for City {i + 1}",city,  key=f"city_name_{i}")  # Editable city name without "City" in label
