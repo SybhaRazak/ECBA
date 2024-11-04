@@ -12,7 +12,7 @@ mutation_per = 0.2
 n_generations = 200
 
 # Default city names list (modifiable by the user)
-default_city_names = ["Gliwice", "Cairo", "Rome", "Krakow", "Paris", "Alexandria", "Berlin", "Tokyo", "Rio", "Budapest"]
+default_city_names = ["Putrajaya", "Johor", "Perlis", "Negeri Sembilan", "Bedong", "Sungai Petani", "Alor Setar", "Skudai", "Tampoi", "Muar"]
 
 # Set up Streamlit form for city names and coordinates input
 city_coords = {}
@@ -21,7 +21,7 @@ with st.form("city_coords_form"):
     st.write("Enter the city names and coordinates:")
     for i, city in enumerate(default_city_names):
         col1, col2, col3 = st.columns([1, 1, 1])
-        city_name = col1.text_input("", city, key=f"city_name_{i}")  # Editable city name without "City" in label
+        city_name = col1.text_input(f"Enter name for City {i + 1}", f"City_{i + 1}")  # Editable city name without "City" in label
         x_coord = col2.number_input(f"x-coordinate", key=f"x_{i}", value=random.randint(0, 15), step=1)
         y_coord = col3.number_input(f"y-coordinate", key=f"y_{i}", value=random.randint(0, 15), step=1)
         city_coords[city_name] = (x_coord, y_coord)
@@ -36,10 +36,10 @@ if submit_button and len(city_coords) == len(default_city_names):
 
     # City Icons
     city_icons = {
-        "Gliwice": "♕",
-        "Cairo": "♖",
-        "Rome": "♗",
-        "Krakow": "♘",
+        "Putrajaya": "♕",
+        "Johor": "♖",
+        "Perlis": "♗",
+        "negeri Sembilan": "♘",
         "Paris": "♙",
         "Alexandria": "♔",
         "Berlin": "♚",
