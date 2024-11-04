@@ -157,19 +157,17 @@ for i, (city, (city_x, city_y)) in enumerate(city_coords.items()):
 fig.set_size_inches(16, 12)
 st.pyplot(fig)
 
+# Replace best_mixed_offspring with best_population
 total_dist_all_individuals = []
 for i in range(0, n_population):
-    total_dist_all_individuals.append(total_dist_individual(best_mixed_offspring[i]))
+    total_dist_all_individuals.append(total_dist_individual(best_population[i]))
 
 index_minimum = np.argmin(total_dist_all_individuals)
-
 minimum_distance = min(total_dist_all_individuals)
-minimum_distance
 
-#shortest path
-# shortest_path = offspring_list[index_minimum]
-shortest_path = best_mixed_offspring[index_minimum]
-shortest_path
+# shortest path
+shortest_path = best_population[index_minimum]
+
 
 x_shortest = []
 y_shortest = []
