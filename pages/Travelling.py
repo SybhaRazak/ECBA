@@ -129,19 +129,28 @@ if submit_button and len(city_coords) == num_cities:
     shortest_path = best_population[best_index]
     min_distance = total_distances[best_index]
 
-    # Plotting the Best Route with Icons
+    # Plotting the Best Route with Icons and Paths
     fig, ax = plt.subplots()
+
+    # Draw lines between every pair of cities to indicate possible paths
+    for city1 in city_coords:
+        for city2 in city_coords:
+            if city1 != city2:
+                x_vals, y_vals = zip(city_coords[city1], city_coords[city2])
+                ax.plot(x_vals, y_vals, color="lightgray", linestyle='-', linewidth=0.5)
+
+    # Plot the shortest path found
     x_coords, y_coords = zip(*[city_coords[city] for city in shortest_path])
     x_coords += (x_coords[0],)  # To return to the start
     y_coords += (y_coords[0],)
-    ax.plot(x_coords, y_coords, '--go', label='Best Route', linewidth=2.5)
+    ax.plot(x_coords, y_coords, 'b-', label='Best Route', linewidth=2.5)
 
     # Draw cities and annotate with icons
     for i, (city, (x, y)) in enumerate(city_coords.items()):
         color = colors[i]
-        ax.scatter(x, y, c=[color], s=1200, zorder=2)
         icon = city_icons.get(city, "")  # Get the icon if it exists, otherwise use an empty string
-        ax.annotate(f"{icon} {i + 1}- {city}", (x, y), fontsize=14, ha='center', va='center', zorder=3)
+        ax.scatter(x, y, c=[color], s=1200, zorder=2)
+        ax.annotate(f"{icon} {city}", (x, y), fontsize=14, ha='center', va='center', zorder=3)
 
     ax.set_title(f"TSP Best Route Using GA\nTotal Distance: {min_distance:.2f}\nGenerations: {n_generations} | Population: {n_population}")
     fig.set_size_inches(12, 8)
