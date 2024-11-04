@@ -23,15 +23,15 @@ default_city_names = ["Putrajaya", "Johor", "Perlis", "Negeri Sembilan", "Bedong
 # Set up Streamlit form for city names and coordinates input
 city_coords = {}
 
-st.write("Enter the city names and coordinates for 10 city :")
-    for i, city in enumerate(default_city_names):
-        col1, col2, col3 = st.columns([1, 1, 1])
-        city_name = col1.text_input(f"Enter name for City {i + 1}",city,  key=f"city_name_{i}")  # Editable city name without "City" in label
-        x_coord = col2.number_input(f"x-coordinate", key=f"x_{i}", value=random.randint(0, 15), step=1)
-        y_coord = col3.number_input(f"y-coordinate", key=f"y_{i}", value=random.randint(0, 15), step=1)
-        city_coords[city_name] = (x_coord, y_coord)
+st.write("Enter the city names and coordinates for 10 cities:")
+for i, city in enumerate(default_city_names):  # Remove extra indentation here
+    col1, col2, col3 = st.columns([1, 1, 1])
+    city_name = col1.text_input(f"Enter name for City {i + 1}", city, key=f"city_name_{i}")  # Editable city name without "City" in label
+    x_coord = col2.number_input(f"x-coordinate", key=f"x_{i}", value=random.randint(0, 15), step=1)
+    y_coord = col3.number_input(f"y-coordinate", key=f"y_{i}", value=random.randint(0, 15), step=1)
+    city_coords[city_name] = (x_coord, y_coord)
 
-    submit_button = st.form_submit_button("Run Coordinates")
+submit_button = st.button("Run Coordinates")
 
 # Run the Genetic Algorithm if the form is submitted
 if submit_button and len(city_coords) == len(default_city_names):
