@@ -183,9 +183,9 @@ fig, ax = plt.subplots()
 ax.plot(x_shortest, y_shortest, '--go', label='Best Route', linewidth=2.5)
 plt.legend()
 
-for i in range(len(x)):
-    for j in range(i + 1, len(x)):
-        ax.plot([x[i], x[j]], [y[i], y[j]], 'k-', alpha=0.09, linewidth=1)
+for i in range(len(x_shortest)):
+    for j in range(i + 1, len(x_shortest)):
+        ax.plot([x_shortest[i], x_shortest[j]], [y_shortest[i], y_shortest[j]], 'k-', alpha=0.09, linewidth=1)
 
 plt.title(label="TSP Best Route Using GA",
           fontsize=25,
