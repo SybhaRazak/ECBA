@@ -11,25 +11,25 @@ crossover_per = 0.8
 mutation_per = 0.2
 n_generations = 200
 
-# Predefined list of city names
-city_names = ["Gliwice", "Cairo", "Rome", "Krakow", "Paris", "Alexandria", "Berlin", "Tokyo", "Rio", "Budapest"]
+# Default city names list (modifiable by the user)
+default_city_names = ["Gliwice", "Cairo", "Rome", "Krakow", "Paris", "Alexandria", "Berlin", "Tokyo", "Rio", "Budapest"]
 
-# Set up Streamlit form for city coordinates input
+# Set up Streamlit form for city names and coordinates input
 city_coords = {}
 
 with st.form("city_coords_form"):
-    st.write("Enter the coordinates for each city:")
-    for i, city in enumerate(city_names):
+    st.write("Enter the city names and coordinates:")
+    for i, city in enumerate(default_city_names):
         col1, col2, col3 = st.columns([1, 1, 1])
-        col1.write(f"{city}")  # Display the city name in the first column
-        x_coord = col2.number_input(f"x-coordinate for {city}", key=f"x_{i}", value=random.randint(0, 15), step=1)
-        y_coord = col3.number_input(f"y-coordinate for {city}", key=f"y_{i}", value=random.randint(0, 15), step=1)
-        city_coords[city] = (x_coord, y_coord)
+        city_name = col1.text_input("", city, key=f"city_name_{i}")  # Editable city name without "City" in label
+        x_coord = col2.number_input(f"x-coordinate", key=f"x_{i}", value=random.randint(0, 15), step=1)
+        y_coord = col3.number_input(f"y-coordinate", key=f"y_{i}", value=random.randint(0, 15), step=1)
+        city_coords[city_name] = (x_coord, y_coord)
 
     submit_button = st.form_submit_button("Run Coordinates")
 
 # Run the Genetic Algorithm if the form is submitted
-if submit_button and len(city_coords) == len(city_names):
+if submit_button and len(city_coords) == len(default_city_names):
 
     # Pastel Palette for Cities
     colors = sns.color_palette("pastel", len(city_coords))
