@@ -26,7 +26,7 @@ with st.form("city_input_form"):
         city_coords[city_name] = (x_coord, y_coord)
 
     # Button to submit the form
-    submit_button = st.form_submit_button("Submit Coordinates and Run GA")
+    submit_button = st.form_submit_button("Run Coordinates")
 
 # Run the Genetic Algorithm if the form is submitted
 if submit_button and len(city_coords) == num_cities:
