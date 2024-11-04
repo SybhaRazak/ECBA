@@ -152,12 +152,18 @@ if submit_button and len(city_coords) == len(default_city_names):
     ax.plot(x_coords, y_coords, 'b-', label='Best Route', linewidth=2.5)
 
     # Draw cities and annotate with icons
-    for i, (city, (x, y)) in enumerate(city_coords.items()):
-        color = colors[i]
-        icon = city_icons.get(city, "")  # Get the icon if it exists, otherwise use an empty string
-        ax.scatter(x, y, c=[color], s=1200, zorder=2)
-        ax.annotate(f"{icon} {city}", (x, y), fontsize=14, ha='center', va='center', zorder=3)
+    for i, (city, (city_x, city_y)) in enumerate(city_coords.items()):
+    color = colors[i]
+    icon = city_icons[city]
+    ax.scatter(city_x, city_y, c=[color], s=1200, zorder=2)
+    ax.annotate(icon, (city_x, city_y), fontsize=40, ha='center', va='center', zorder=3)
+    ax.annotate(city, (city_x, city_y), fontsize=12, ha='center', va='bottom', xytext=(0, -30),
+                textcoords='offset points')
 
-    ax.set_title(f"TSP Best Route Using GA\nTotal Distance: {min_distance:.2f}\nGenerations: {n_generations} | Population: {n_population}")
-    fig.set_size_inches(12, 8)
+    # Connect cities with opaque lines
+    for j, (other_city, (other_x, other_y)) in enumerate(city_coords.items()):
+        if i != j:
+            ax.plot([city_x, other_x], [city_y, other_y], color='gray', linestyle='-', linewidth=1, alpha=0.1)
+
+    fig.set_size_inches(16, 12)
     st.pyplot(fig)
