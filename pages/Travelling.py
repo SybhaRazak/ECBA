@@ -20,9 +20,10 @@ city_coords = {}
 with st.form("city_coords_form"):
     st.write("Enter the coordinates for each city:")
     for i, city in enumerate(city_names):
-        col1, col2 = st.columns(2)
-        x_coord = col1.number_input(f"x-coordinate for {city}", key=f"x_{i}", value=random.randint(0, 15), step=1)
-        y_coord = col2.number_input(f"y-coordinate for {city}", key=f"y_{i}", value=random.randint(0, 15), step=1)
+        col1, col2, col3 = st.columns([1, 1, 1])
+        col1.write(f"{city}")  # Display the city name in the first column
+        x_coord = col2.number_input(f"x-coordinate for {city}", key=f"x_{i}", value=random.randint(0, 15), step=1)
+        y_coord = col3.number_input(f"y-coordinate for {city}", key=f"y_{i}", value=random.randint(0, 15), step=1)
         city_coords[city] = (x_coord, y_coord)
 
     submit_button = st.form_submit_button("Run Coordinates")
