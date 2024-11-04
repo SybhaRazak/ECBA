@@ -7,9 +7,9 @@ import streamlit as st
 
 
 st.set_page_config(
- page_title="Genetic Algorithm"
+ page_title="Traveling Salesman"
 )
-st.header("Genetic Algorithm", divider="gray")
+st.header("Traveling Salesman", divider="gray")
 
 # Initial parameters
 n_population = 250
@@ -24,7 +24,7 @@ default_city_names = ["Putrajaya", "Johor", "Perlis", "Negeri Sembilan", "Bedong
 city_coords = {}
 
 with st.form("city_coords_form"):
-    st.write("Enter the city names and coordinates:")
+    st.write("Enter the city names and coordinates for 10 city :")
     for i, city in enumerate(default_city_names):
         col1, col2, col3 = st.columns([1, 1, 1])
         city_name = col1.text_input(f"Enter name for City {i + 1}",city, key=f"city_name_{i}")  # Editable city name without "City" in label
@@ -45,13 +45,13 @@ if submit_button and len(city_coords) == len(default_city_names):
         "Putrajaya": "♕",
         "Johor": "♖",
         "Perlis": "♗",
-        "negeri Sembilan": "♘",
-        "Paris": "♙",
-        "Alexandria": "♔",
-        "Berlin": "♚",
-        "Tokyo": "♛",
-        "Rio": "♜",
-        "Budapest": "♝"
+        "Negeri Sembilan": "♘",
+        "Bedong": "♙",
+        "Sungai Petani": "♔",
+        "Alor Setar": "♚",
+        "Skudai": "♛",
+        "Tampoi": "♜",
+        "Muar": "♝"
     }
 
     def initial_population(cities_list, n_population=250):
