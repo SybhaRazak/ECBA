@@ -7,6 +7,7 @@ from numpy import pi
 from numpy import meshgrid
 from matplotlib import pyplot
 from mpl_toolkits.mplot3d import Axes3D
+import streamlit as st
 
 # objective function
 def objective(x, y):
