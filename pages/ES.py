@@ -28,4 +28,4 @@ figure = pyplot.figure()
 axis = figure.add_subplot(projection='3d')  # Corrected line
 axis.plot_surface(x, y, results, cmap='jet')
 # show the plot
-st.pyplot(fig)
+st.pyplot(figure)
