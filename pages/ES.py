@@ -1,3 +1,4 @@
+import streamlit as st
 from numpy import arange
 from numpy import exp
 from numpy import sqrt
@@ -7,7 +8,7 @@ from numpy import pi
 from numpy import meshgrid
 from matplotlib import pyplot
 from mpl_toolkits.mplot3d import Axes3D
-import streamlit as st
+
 
 # objective function
 def objective(x, y):
