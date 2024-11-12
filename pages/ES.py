@@ -8,6 +8,12 @@ from numpy import pi
 from numpy import meshgrid
 from matplotlib import pyplot
 from mpl_toolkits.mplot3d import Axes3D
+from numpy import asarray
+from numpy import cos
+from numpy import argsort
+from numpy.random import randn
+from numpy.random import rand
+from numpy.random import seed
 
 
 # objective function
@@ -29,17 +35,6 @@ axis = figure.add_subplot(projection='3d')  # Corrected line
 axis.plot_surface(x, y, results, cmap='jet')
 # show the plot
 st.pyplot(figure)
-
-from numpy import asarray
-from numpy import exp
-from numpy import sqrt
-from numpy import cos
-from numpy import e
-from numpy import pi
-from numpy import argsort
-from numpy.random import randn
-from numpy.random import rand
-from numpy.random import seed
 
 # objective function
 def objective(v):
@@ -107,5 +102,5 @@ mu = 20
 lam = 100
 # perform the evolution strategy (mu, lambda) search
 best, score = es_comma(objective, bounds, n_iter, step_size, mu, lam)
-print('Done!')
-print('f(%s) = %f' % (best, score))
+st.write('Done!')
+st.write('f(%s) = %f' % (best, score))
