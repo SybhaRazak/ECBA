@@ -1,2 +1,7 @@
 matplotlib
 seaborn
+opencv-python-headless
+streamlit
+streamlit-drawable-canvas
+numpy
+Pillow
