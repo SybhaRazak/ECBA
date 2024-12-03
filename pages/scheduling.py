@@ -39,8 +39,12 @@ ratings = program_ratings_dict
 
 GEN = 100
 POP = 50
-CO_R = 0.8
-MUT_R = 0.2
+# Enter mutation rate with a tooltip for more clarity
+CO_R = st.number_input("Enter Your Mutation Rate", value=0.10, min_value=0.0, max_value=1.0, step=0.10)
+
+# Enter mutation rate with a tooltip for more clarity
+MUT_RATE = st.number_input("Enter Your Mutation Rate", value=0.10, min_value=0.0, max_value=0.95, step=0.10)
+
 EL_S = 2
 
 all_programs = list(ratings.keys()) # all programs
