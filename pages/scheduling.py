@@ -43,7 +43,7 @@ POP = 50
 CO_R = st.number_input("Enter Your Correlation Rate", value=0.00, min_value=0.00, max_value=1.00, step=0.05)
 
 # Enter mutation rate with a tooltip for more clarity
-MUT_RATE = st.number_input("Enter Your Mutation Rate", value=0.01, min_value=0.01, max_value=0.06, step=0.05)
+MUT_RATE = st.number_input("Enter Your Mutation Rate", value=0.01, min_value=0.01, max_value=0.06, step=0.01)
 
 EL_S = 2
 
