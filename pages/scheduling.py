@@ -50,6 +50,8 @@ EL_S = 2
 all_programs = list(ratings.keys()) # all programs
 all_time_slots = list(range(6, 24)) # time slots
 
+st.button("Calculate")
+
 ######################################### DEFINING FUNCTIONS ########################################################################
 # defining fitness function
 def fitness_function(schedule):
