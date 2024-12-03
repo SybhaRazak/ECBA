@@ -2,6 +2,11 @@ import csv
 import random
 import streamlit as st
 
+st.set_page_config(
+ page_title="Scheduling Program"
+)
+st.header("Scheduling Program", divider="gray")
+
 # Function to read the CSV file and convert it to the desired format
 def read_csv_to_dict(file_path):
     program_ratings = {}
