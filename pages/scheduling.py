@@ -40,10 +40,10 @@ ratings = program_ratings_dict
 GEN = 100
 POP = 50
 # Enter mutation rate with a tooltip for more clarity
-CO_R = st.number_input("Enter Your Mutation Rate", value=0.10, min_value=0.0, max_value=1.0, step=0.10)
+CO_R = st.number_input("Enter Your Mutation Rate", value=0.00, min_value=0.0, max_value=1.0, step=0.10)
 
 # Enter mutation rate with a tooltip for more clarity
-MUT_RATE = st.number_input("Enter Your Mutation Rate", value=0.00, min_value=0.0, max_value=1.00, step=0.05)
+MUT_RATE = st.number_input("Enter Your Mutation Rate", value=0.00, min_value=0.00, max_value=1.00, step=0.05)
 
 EL_S = 2
 
