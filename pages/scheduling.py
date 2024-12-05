@@ -1,5 +1,6 @@
 import csv
 import random
+import pandas as pd
 import streamlit as st
 
 st.set_page_config(
@@ -97,12 +98,7 @@ with st.form("scheduler_form"):
             schedule[mutation_point] = new_program
             return schedule
 
-       
         # calling the fitness func.
-        def evaluate_fitness(schedule):
-            return fitness_function(schedule)
-            
-        # genetic algorithms with parameters
         def genetic_algorithm(initial_schedule, generations=GEN, population_size=POP, crossover_rate=CO_R, mutation_rate=MUT_RATE, elitism_size=EL_S):
             population = [initial_schedule]
 
@@ -144,8 +140,30 @@ with st.form("scheduler_form"):
 
         final_schedule = initial_best_schedule + genetic_schedule[:rem_t_slots]
 
-        st.write("\nFinal Optimal Schedule:")
+        # Create a DataFrame for better presentation
+        schedule_data = []
         for time_slot, program in enumerate(final_schedule):
-            st.write(f"Time Slot {all_time_slots[time_slot]:02d}:00 - Program {program}")
+            schedule_data.append({
+                "Time Slot": f"{all_time_slots[time_slot]:02d}:00",
+                "Program": program
+            })
 
+        # Convert to DataFrame
+        schedule_df = pd.DataFrame(schedule_data)
+
+        # Display as a table
+        st.write("### Final Optimal TV Schedule")
+        st.table(schedule_df)
+
+        # Alternatively, if you prefer a styled Markdown table
+        def create_markdown_table(df):
+            markdown = "| Time Slot | Program |\n|-----------|---------|\n"
+            for _, row in df.iterrows():
+                markdown += f"| {row['Time Slot']} | {row['Program']} |\n"
+            return markdown
+
+        st.write("### Final Optimal TV Schedule (Markdown Style)")
+        st.markdown(create_markdown_table(schedule_df))
+
+        # Display the total ratings
         st.write("Total Ratings:", fitness_function(final_schedule))
