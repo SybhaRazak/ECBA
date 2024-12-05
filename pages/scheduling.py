@@ -161,9 +161,6 @@ with st.form("scheduler_form"):
             for _, row in df.iterrows():
                 markdown += f"| {row['Time Slot']} | {row['Program']} |\n"
             return markdown
-
-        st.write("### Final Optimal TV Schedule (Markdown Style)")
-        st.markdown(create_markdown_table(schedule_df))
-
+        
         # Display the total ratings
         st.write("Total Ratings:", fitness_function(final_schedule))
