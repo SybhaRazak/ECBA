@@ -77,6 +77,11 @@ with st.form("scheduler_form"):
                     best_schedule = schedule
 
             return best_schedule
+        # calling the pop func.
+        all_possible_schedules = initialize_pop(all_programs, all_time_slots)
+
+        # callin the schedule func.
+        best_schedule = finding_best_schedule(all_possible_schedules)
 
         # Crossover
         def crossover(schedule1, schedule2):
@@ -92,7 +97,12 @@ with st.form("scheduler_form"):
             schedule[mutation_point] = new_program
             return schedule
 
+       
         # calling the fitness func.
+        def evaluate_fitness(schedule):
+            return fitness_function(schedule)
+            
+        # genetic algorithms with parameters
         def genetic_algorithm(initial_schedule, generations=GEN, population_size=POP, crossover_rate=CO_R, mutation_rate=MUT_RATE, elitism_size=EL_S):
             population = [initial_schedule]
 
@@ -127,8 +137,8 @@ with st.form("scheduler_form"):
             return population[0]
 
         # brute force
-        all_possible_schedules = initialize_pop(all_programs, all_time_slots)
         initial_best_schedule = finding_best_schedule(all_possible_schedules)
+
         rem_t_slots = len(all_time_slots) - len(initial_best_schedule)
         genetic_schedule = genetic_algorithm(initial_best_schedule, generations=GEN, population_size=POP, elitism_size=EL_S)
 
