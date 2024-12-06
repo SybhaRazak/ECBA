@@ -45,7 +45,7 @@ with st.form("scheduler_form"):
     EL_S = 2
     calculate = st.form_submit_button("Calculate")
 
-        if calculate:
+    if calculate:
         ######################################### DEFINING FUNCTIONS ########################################################################
         # defining fitness function
         def fitness_function(schedule):
