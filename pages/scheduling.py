@@ -168,7 +168,7 @@ with st.form("scheduler_form"):
         def create_markdown_table(df):
             markdown = "| Time Slot | Program |\n|-----------|---------|\n"
             for _, row in df.iterrows():
-                markdown += f"| {row['Time Slot']} | {row['Program']} |\n"
+                markdown += "| {row['Time Slot']} | {row['Program']} |\n"
             return markdown
 
         # Display the total ratings
