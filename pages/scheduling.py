@@ -25,7 +25,7 @@ def read_csv_to_dict(file_path):
     return program_ratings
 
 # Path to the CSV file
-file_path = 'pages/program_ratings1.csv'
+file_path = 'pages/program_ratings.csv'
 
 # Get the data in the required format
 program_ratings_dict = read_csv_to_dict(file_path)
@@ -43,7 +43,7 @@ with st.form("scheduler_form"):
     CO_R = st.number_input("Enter Your Correlation Rate", value=0.80, min_value=0.00, max_value=1.00, step=0.01)
     MUT_RATE = st.number_input("Enter Your Mutation Rate", value=0.02, min_value=0.01, max_value=0.06, step=0.01)
     EL_S = 2
-    calculate = st.form_submit_button("Calculate")
+    calculate = st.form_submit_button("Find")
 
     if calculate:
         ######################################### DEFINING FUNCTIONS ########################################################################
