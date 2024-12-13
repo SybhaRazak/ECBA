@@ -171,5 +171,4 @@ with st.form("scheduler_form"):
                 markdown += "| {row['Time Slot']} | {row['Program']} |\n"
             return markdown
 
-        # Display the total ratings
-        st.write("Total Ratings:", fitness_function(final_schedule))
+        st.write("Total Ratings:", f"{fitness_function(final_schedule):.1f}")
