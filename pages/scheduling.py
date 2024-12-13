@@ -171,8 +171,5 @@ with st.form("scheduler_form"):
                 markdown += f"| {row['Time Slot']} | {row['Program']} |\n"
             return markdown
         
-        # Display the Markdown table (if needed)
-        st.markdown(create_markdown_table(schedule_df))
-        
         # Display the total ratings
         st.write("Total Ratings:", fitness_function(final_schedule))
