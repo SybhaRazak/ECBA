@@ -150,31 +150,29 @@ with st.form("scheduler_form"):
 
         final_schedule = initial_best_schedule + genetic_schedule[:rem_t_slots]
        # Create a DataFrame for better presentation
-schedule_data = []
-for time_slot, program in enumerate(final_schedule):
-    schedule_data.append({
-        "Time Slot": f"{all_time_slots[time_slot]:02d}:00",
-        "Program": program
-    })
-
-# Convert to DataFrame
-schedule_df = pd.DataFrame(schedule_data)
-
-# Display as a table without numbering
-st.write("### Final Optimal TV Schedule")
-st.table(schedule_df.style.hide(axis="index"))
-
-# Alternatively, if you prefer a styled Markdown table
-def create_markdown_table(df):
-    markdown = "| Time Slot | Program |\n|-----------|---------|\n"
-    for _, row in df.iterrows():
-        markdown += f"| {row['Time Slot']} | {row['Program']} |\n"
-    return markdown
-
-# Display the Markdown table (if needed)
-st.markdown(create_markdown_table(schedule_df))
-
-# Display the total ratings
-st.write("Total Ratings:", fitness_function(final_schedule))
-
-
+        schedule_data = []
+        for time_slot, program in enumerate(final_schedule):
+            schedule_data.append({
+                "Time Slot": f"{all_time_slots[time_slot]:02d}:00",
+                "Program": program
+            })
+        
+        # Convert to DataFrame
+        schedule_df = pd.DataFrame(schedule_data)
+        
+        # Display as a table without numbering
+        st.write("### Final Optimal TV Schedule")
+        st.table(schedule_df.style.hide(axis="index"))
+        
+        # Alternatively, if you prefer a styled Markdown table
+        def create_markdown_table(df):
+            markdown = "| Time Slot | Program |\n|-----------|---------|\n"
+            for _, row in df.iterrows():
+                markdown += f"| {row['Time Slot']} | {row['Program']} |\n"
+            return markdown
+        
+        # Display the Markdown table (if needed)
+        st.markdown(create_markdown_table(schedule_df))
+        
+        # Display the total ratings
+        st.write("Total Ratings:", fitness_function(final_schedule))
