@@ -41,7 +41,7 @@ all_time_slots = list(range(6, 24))  # time slots
 with st.form("scheduler_form"):
     # User inputs
     CO_R = st.number_input("Enter Your Correlation Rate", value=0.80, min_value=0.00, max_value=0.96, step=0.01)
-    MUT_RATE = st.number_input("Enter Your Mutation Rate", value=0.02, min_value=0.00, max_value=0.06, step=0.01)
+    MUT_RATE = st.number_input("Enter Your Mutation Rate", value=0.02, min_value=0.01, max_value=0.06, step=0.01)
     EL_S = 2
     calculate = st.form_submit_button("Find")
 
