@@ -118,8 +118,10 @@ mutation_rate = st.slider("Mutation Rate", 0.0, 1.0, MUTATION_RATE, step=0.01)
 if st.button("Run Optimization"):
     st.write("Running genetic algorithm...")
     
-    # Update the parameters based on the user input
+    # Declare global variables before modifying them
     global POPULATION_SIZE, GENERATIONS, TARGET_FITNESS, MUTATION_RATE
+    
+    # Update the parameters based on the user input
     POPULATION_SIZE = population_size
     GENERATIONS = generations
     TARGET_FITNESS = target_accuracy
@@ -132,4 +134,3 @@ if st.button("Run Optimization"):
     st.write(f"Optimization completed in {generation} generations.")
     st.write(f"Best Hyperparameters: {best_solution}")
     st.write(f"Best Accuracy: {best_accuracy:.4f}")
-
