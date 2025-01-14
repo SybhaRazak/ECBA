@@ -74,6 +74,8 @@ def mutate(individual):
 
 # Run Genetic Algorithm with Target Fitness
 def genetic_algorithm_with_target():
+    global POPULATION_SIZE, GENERATIONS, TARGET_FITNESS, MUTATION_RATE  # Declare global variables before using them
+    
     population = initialize_population()
     for generation in range(GENERATIONS):
         # Evaluate fitness
@@ -117,9 +119,6 @@ mutation_rate = st.slider("Mutation Rate", 0.0, 1.0, MUTATION_RATE, step=0.01)
 # Run Genetic Algorithm when the button is clicked
 if st.button("Run Optimization"):
     st.write("Running genetic algorithm...")
-    
-    # Declare global variables before modifying them
-    global POPULATION_SIZE, GENERATIONS, TARGET_FITNESS, MUTATION_RATE
     
     # Update the parameters based on the user input
     POPULATION_SIZE = population_size
