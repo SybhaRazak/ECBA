@@ -4,7 +4,7 @@ import pandas as pd
 import random
 
 # Load the dataset
-dataset_path = '/content/hyperparameter_dataset.csv'
+dataset_path = 'pages/hyperparameter_dataset.csv'
 data = pd.read_csv(dataset_path)
 
 # Extract relevant columns
