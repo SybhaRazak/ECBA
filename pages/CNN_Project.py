@@ -65,8 +65,9 @@ def genetic_algorithm():
     population = initialize_pop()
     generation = 1
     best_fitness_values = []
+    found = False
 
-    while generation <= MAX_GENERATIONS:
+    while not found and generation <= MAX_GENERATIONS:
         selected = selection(population)
         new_generation = []
         for _ in range(POP_SIZE):
@@ -81,15 +82,12 @@ def genetic_algorithm():
         best_fitness = fitness_cal(best_individual)
         best_fitness_values.append(best_fitness)
 
-        # Streamlit progress update
+        # Update Streamlit progress
         st.write(f"Generation {generation}, Best Fitness: {best_fitness:.6f}")
-
-        # Stop if target fitness is met or exceeded
-        if best_fitness >= TARGET_FITNESS:
-            st.success(f"Target fitness ({TARGET_FITNESS}) achieved in generation {generation}!")
-            break
-
         generation += 1
+
+        if best_fitness >= TARGET_FITNESS:
+            found = True
 
     return best_fitness_values, best_individual, generation
 
@@ -111,9 +109,9 @@ def main():
 
     # Display Parameters
     st.sidebar.header("Genetic Algorithm Parameters")
-    pop_size = st.sidebar.slider("Population Size", min_value=10, max_value=200, value=POP_SIZE, step=10)
-    mut_rate = st.sidebar.slider("Mutation Rate", min_value=0.0, max_value=1.0, value=MUT_RATE, step=0.05)
-    target_fitness = st.sidebar.number_input("Target Fitness", value=TARGET_FITNESS, step=0.001, format="%.3f")
+    POP_SIZE= st.sidebar.slider("Population Size", min_value=10, max_value=200, value=POP_SIZE, step=10)
+    MUT_RATE = st.sidebar.slider("Mutation Rate", min_value=0.0, max_value=1.0, value=MUT_RATE, step=0.05)
+    TARGET_FITNESS = st.sidebar.number_input("Target Fitness", value=TARGET_FITNESS, step=0.001, format="%.3f")
 
     # Run Genetic Algorithm
     if st.button("Run Genetic Algorithm"):
