@@ -109,9 +109,9 @@ def main():
 
     # Display Parameters
     st.sidebar.header("Genetic Algorithm Parameters")
-    POP_SIZE= st.sidebar.slider("Population Size", min_value=10, max_value=200, value=POP_SIZE, step=10)
-    MUT_RATE = st.sidebar.slider("Mutation Rate", min_value=0.0, max_value=1.0, value=MUT_RATE, step=0.05)
-    TARGET_FITNESS = st.sidebar.number_input("Target Fitness", value=TARGET_FITNESS, step=0.001, format="%.3f")
+    pop_size = st.sidebar.slider("Population Size", min_value=10, max_value=200, value=POP_SIZE, step=10)
+    mut_rate = st.sidebar.slider("Mutation Rate", min_value=0.0, max_value=1.0, value=MUT_RATE, step=0.05)
+    target_fitness = st.sidebar.number_input("Target Fitness", value=TARGET_FITNESS, step=0.001, format="%.3f")
 
     # Run Genetic Algorithm
     if st.button("Run Genetic Algorithm"):
