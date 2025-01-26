@@ -65,9 +65,8 @@ def genetic_algorithm():
     population = initialize_pop()
     generation = 1
     best_fitness_values = []
-    found = False
 
-    while not found and generation <= MAX_GENERATIONS:
+    while generation <= MAX_GENERATIONS:
         selected = selection(population)
         new_generation = []
         for _ in range(POP_SIZE):
@@ -82,12 +81,15 @@ def genetic_algorithm():
         best_fitness = fitness_cal(best_individual)
         best_fitness_values.append(best_fitness)
 
-        # Update Streamlit progress
+        # Streamlit progress update
         st.write(f"Generation {generation}, Best Fitness: {best_fitness:.6f}")
-        generation += 1
 
+        # Stop if target fitness is met or exceeded
         if best_fitness >= TARGET_FITNESS:
-            found = True
+            st.success(f"Target fitness ({TARGET_FITNESS}) achieved in generation {generation}!")
+            break
+
+        generation += 1
 
     return best_fitness_values, best_individual, generation
 
@@ -122,14 +124,6 @@ def main():
         st.success(f"Optimization Complete in {generations} generations!")
         st.write(f"**Best Individual:** {best_individual}")
         st.write(f"**Best Fitness Achieved:** {best_fitness_values[-1]:.6f}")
-
-        # Highlight Best Hyperparameters
-        st.subheader("Optimal Hyperparameters")
-        st.write(f"- **Learning Rate:** {best_individual['learning_rate']}")
-        st.write(f"- **Batch Size:** {best_individual['batch_size']}")
-        st.write(f"- **Hidden Layers:** {best_individual['hidden_layers']}")
-        st.write(f"- **Activation Function:** {best_individual['activation']}")
-        st.write(f"- **Epochs:** {best_individual['epochs']}")
 
         # Visualize Fitness
         st.subheader("Fitness Over Generations")
