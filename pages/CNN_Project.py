@@ -123,6 +123,14 @@ def main():
         st.write(f"**Best Individual:** {best_individual}")
         st.write(f"**Best Fitness Achieved:** {best_fitness_values[-1]:.6f}")
 
+        # Highlight Best Hyperparameters
+        st.subheader("Optimal Hyperparameters")
+        st.write(f"- **Learning Rate:** {best_individual['learning_rate']}")
+        st.write(f"- **Batch Size:** {best_individual['batch_size']}")
+        st.write(f"- **Hidden Layers:** {best_individual['hidden_layers']}")
+        st.write(f"- **Activation Function:** {best_individual['activation']}")
+        st.write(f"- **Epochs:** {best_individual['epochs']}")
+
         # Visualize Fitness
         st.subheader("Fitness Over Generations")
         visualize_fitness(best_fitness_values)
