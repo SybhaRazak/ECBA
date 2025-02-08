@@ -19,6 +19,7 @@ def load_labels():
     return {row["ClassId"]: row["Name"] for _, row in labels_df.iterrows()}  # Adjust column names if needed
 
 class_labels = load_labels()
+st.write("Loaded Class Labels:", class_labels)  # Debugging output
 
 st.title("Traffic Sign Classification")
 st.write("Upload an image to classify the traffic sign.")
@@ -43,14 +44,20 @@ if uploaded_file is not None:
     
     try:
         prediction = model.predict(img_array)
-        predicted_class = np.argmax(prediction)
-        confidence = np.max(prediction) * 100
-
+        top_3_indices = np.argsort(prediction[0])[-3:][::-1]  # Get top 3 predictions
+        top_3_confidences = prediction[0][top_3_indices] * 100
+        
         # Debugging Output for Predictions
         st.write(f"Raw Prediction Output: {prediction}")
-        st.write(f"Predicted Class Index: {predicted_class}")
-
-        st.write(f"**Prediction:** {class_labels.get(predicted_class, 'Unknown')}")
-        st.write(f"**Confidence:** {confidence:.2f}%")
+        st.write(f"Top-3 Predictions:")
+        for i in range(3):
+            class_id = top_3_indices[i]
+            class_name = class_labels.get(class_id, 'Unknown')
+            confidence = top_3_confidences[i]
+            st.write(f"{i+1}. {class_name} ({confidence:.2f}%)")
+        
+        # Display top prediction
+        st.write(f"**Final Prediction:** {class_labels.get(top_3_indices[0], 'Unknown')}")
+        st.write(f"**Confidence:** {top_3_confidences[0]:.2f}%")
     except ValueError as e:
         st.error(f"Model Prediction Error: {e}")
