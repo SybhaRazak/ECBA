@@ -38,7 +38,8 @@ def load_model():
 # Preprocess the image (resize, scale, and expand dimensions for prediction)
 def preprocess_image(image):
     try:
-        image = image.resize((32, 32))  # Resize to match the model input
+        # Resize image to 64x64 (adjust according to the model input size)
+        image = image.resize((64, 64))  # Resize to match the model input
         img_array = np.array(image)
         img_array = img_array / 255.0  # Normalize to [0, 1]
         img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
