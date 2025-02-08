@@ -8,27 +8,41 @@ import os
 # Function to load the CSV file containing the labels
 def load_labels():
     file_path = "pages/labels.csv"  # Ensure this is the correct path to your CSV file
+    st.write(f"Looking for file at: {file_path}")
 
     # Check if the file exists
     if os.path.exists(file_path):
         try:
             df = pd.read_csv(file_path)  # Load CSV into pandas DataFrame
+            st.write("CSV loaded successfully!")
             return df
         except Exception as e:
             st.error(f"Error loading CSV file: {e}")
+            return None
     else:
         st.error(f"File '{file_path}' not found.")
         return None
 
-# If class labels are successfully loaded, display the data
+# Load the labels
+class_labels = load_labels()
+
+# Debugging check
 if class_labels is not None:
     st.write("Class Labels Loaded:")
-    st.dataframe(class_labels.head()) 
+    st.write(class_labels.head())  # Check the top rows of the CSV to ensure it's correct
+else:
+    st.write("No class labels loaded. Please check the CSV file.")
 
 # Load trained model
 @st.cache_resource
 def load_model():
-    return tf.keras.models.load_model("pages/traffic_sign_model.h5")
+    try:
+        model = tf.keras.models.load_model("pages/traffic_sign_model.h5")
+        st.write("Model loaded successfully!")
+        return model
+    except Exception as e:
+        st.error(f"Error loading model: {e}")
+        return None
 
 model = load_model()
 
@@ -53,15 +67,22 @@ if uploaded_file is not None:
     
     # Preprocess and predict
     processed_image = preprocess_image(image)
-    try:
-        prediction = model.predict(processed_image)
-        predicted_class = np.argmax(prediction, axis=1)[0]
-        confidence = np.max(prediction)
-        
-        # Display results
-        sign_name = class_labels.get(predicted_class, "Unknown Sign")
-        st.write(f"**Prediction:** {sign_name}")
-        st.write(f"**Confidence:** {confidence:.2f}")
-    except Exception as e:
-        st.error(f"Error during prediction: {e}")
+    
+    if model is not None:  # Only try prediction if the model is loaded successfully
+        try:
+            prediction = model.predict(processed_image)
+            predicted_class = np.argmax(prediction, axis=1)[0]
+            confidence = np.max(prediction)
+            
+            # Display results
+            if class_labels is not None:  # Ensure class_labels is loaded
+                sign_name = class_labels.get(predicted_class, "Unknown Sign")
+                st.write(f"**Prediction:** {sign_name}")
+            else:
+                st.write("Class labels not found.")
+            st.write(f"**Confidence:** {confidence:.2f}")
+        except Exception as e:
+            st.error(f"Error during prediction: {e}")
+    else:
+        st.error("Model is not loaded properly.")
 
