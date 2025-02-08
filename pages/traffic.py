@@ -13,15 +13,18 @@ def load_labels():
     if os.path.exists(file_path):  # Make sure the file path is correct
         try:
             df = pd.read_csv(file_path)  # Load CSV into pandas DataFrame
-            # Ensure the CSV contains the correct columns and create a dictionary
+            
+            # Check if the CSV contains 'ClassId' and 'SignName' columns
             if 'ClassId' in df.columns and 'SignName' in df.columns:
-                labels_dict = dict(zip(df['ClassId'], df['SignName']))  # Create dictionary
+                # Create a dictionary with 'ClassId' as the key and 'SignName' as the value
+                labels_dict = dict(zip(df['ClassId'], df['SignName']))
                 return labels_dict
             else:
                 st.error("CSV file must contain 'ClassId' and 'SignName' columns.")
                 return None
         except Exception as e:
             st.error(f"Error loading CSV file: {e}")
+            return None
     else:
         st.error(f"File '{file_path}' not found.")
         return None
