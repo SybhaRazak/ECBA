@@ -33,7 +33,7 @@ def load_labels():
         try:
             df = pd.read_csv(file_path)  # Load CSV into pandas DataFrame
             # Convert the DataFrame to a dictionary
-            class_dict = dict(zip(df['ClassId'], df['SignName']))
+            class_dict = dict(zip(df['ClassId'], df['Name']))
             return class_dict
         except Exception as e:
             st.error(f"Error loading CSV file: {e}")
