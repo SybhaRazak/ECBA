@@ -30,17 +30,20 @@ if class_labels is not None:
 
 # Load trained model
 @st.cache_resource
+# Load trained model
 def load_model():
-    return tf.keras.models.load_model("traffic_sign_model.h5")
+    model_path = "traffic_sign_model.h5"
+    if os.path.exists(model_path):
+        try:
+            return tf.keras.models.load_model(model_path)
+        except Exception as e:
+            st.error(f"Error loading model: {e}")
+    else:
+        st.error(f"Model file '{model_path}' not found.")
+        return None
 
 model = load_model()
 
-# Function to preprocess the image
-def preprocess_image(image):
-    image = image.resize((32, 32))  # Resize to match model input
-    image = np.array(image) / 255.0  # Normalize
-    image = np.expand_dims(image, axis=0)  # Add batch dimension
-    return image
 
 # Streamlit UI
 st.title("Traffic Sign Classification")
