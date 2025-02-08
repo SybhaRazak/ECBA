@@ -3,17 +3,22 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 from PIL import Image
-import os
+import os  # Import the os module to check file existence
 
 # Function to load the CSV file containing the labels
 def load_labels():
     file_path = "pages/labels.csv"  # Ensure this is the correct path to your CSV file
 
     # Check if the file exists
-    if os.path.exists(file_path):
+    if os.path.exists(file_path):  # Make sure the file path is correct
         try:
             df = pd.read_csv(file_path)  # Load CSV into pandas DataFrame
-            return dict(zip(df.ClassId, df.SignName))  # Return a dictionary of ClassId -> SignName
+            # Ensure the CSV contains the correct columns and create a dictionary
+            if 'ClassId' in df.columns and 'SignName' in df.columns:
+                return dict(zip(df['ClassId'], df['SignName']))  # Return a dictionary of ClassId -> SignName
+            else:
+                st.error("CSV file must contain 'ClassId' and 'SignName' columns.")
+                return None
         except Exception as e:
             st.error(f"Error loading CSV file: {e}")
     else:
@@ -32,6 +37,7 @@ def predict_image(model, image, class_names):
     predicted_class = np.argmax(predictions[0])
     class_probability = predictions[0][predicted_class]
 
+    # Get the predicted class name from the dictionary
     predicted_class_name = class_names.get(predicted_class, "Unknown Sign")
 
     return predicted_class_name, class_probability, img
@@ -72,5 +78,3 @@ if uploaded_file is not None:
 
     # Optionally, display the image using Streamlit
     st.image(img, caption="Processed Image", use_column_width=True)
-
-
