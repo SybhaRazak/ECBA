@@ -44,11 +44,15 @@ if uploaded_file is not None:
     
     try:
         prediction = model.predict(img_array)
+        
+        # Debugging: Check if the model's output is expected
+        st.write(f"Raw Prediction Output: {prediction}")
+        
+        # Get top 3 predictions
         top_3_indices = np.argsort(prediction[0])[-3:][::-1]  # Get top 3 predictions
         top_3_confidences = prediction[0][top_3_indices] * 100
         
-        # Debugging Output for Predictions
-        st.write(f"Raw Prediction Output: {prediction}")
+        # Debugging: Show the top 3 predictions
         st.write(f"Top-3 Predictions:")
         for i in range(3):
             class_id = top_3_indices[i]
