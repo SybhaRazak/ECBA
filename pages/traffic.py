@@ -1,34 +1,56 @@
+import streamlit as st
 import tensorflow as tf
 import numpy as np
+import pandas as pd
 from PIL import Image
-import matplotlib.pyplot as plt
 
-def predict_image(model, image_path, class_names):
-    # Load and preprocess the image
-    img = tf.keras.preprocessing.image.load_img(image_path, target_size=(224, 224))
-    img_array = tf.keras.preprocessing.image.img_to_array(img)
-    img_array = tf.expand_dims(img_array, 0)  # Create a batch
+# Load the trained model
+@st.cache_resource
+def load_model():
+    model = tf.keras.models.load_model("pages/traffic_sign_model.h5")  # Update with actual model path
+    return model
 
-    # Make predictions
-    predictions = model.predict(img_array)
-    predicted_class = np.argmax(predictions[0])
-    class_probability = predictions[0][predicted_class]
+model = load_model()
 
-    predicted_class_name = class_names[predicted_class]
+# Load class labels from CSV
+@st.cache_resource
+def load_labels():
+    labels_df = pd.read_csv("pages/labels.csv")  # Ensure this path is correct
+    return {row["ClassId"]: row["Name"] for _, row in labels_df.iterrows()}  # Adjust column names if needed
 
-    return predicted_class_name, class_probability, img
+class_labels = load_labels()
 
-# Example usage (assuming you have your model and class names)
-# Assuming 'model' is your trained model and 'class_names' is a list of your class labels
-uploaded_image_path = "/content/speed-limit-sign-number-fifty-260nw-224034151.webp"  # Example path
+st.title("Traffic Sign Classification")
+st.write("Upload an image to classify the traffic sign.")
 
-predicted_class, probability, img = predict_image(model, uploaded_image_path, class_names)
+uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "png", "jpeg"])
 
-# Display the image
-plt.imshow(img)
-plt.axis('off')  # Hide axes
-plt.show()
+if uploaded_file is not None:
+    image = Image.open(uploaded_file).convert("RGB")
+    st.image(image, caption="Uploaded Image", use_column_width=True)
+    
+    # Get model input shape dynamically
+    input_shape = model.input_shape[1:3]  # Extract expected height and width
+    st.write(f"Expected Model Input Shape: {input_shape}")
+    
+    # Preprocess image
+    img = image.resize(input_shape)  # Resize to model's expected input
+    img_array = np.array(img) / 255.0  # Normalize
+    img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
+    
+    # Debugging Output
+    st.write(f"Image Shape Before Model: {img_array.shape}")
+    
+    try:
+        prediction = model.predict(img_array)
+        predicted_class = np.argmax(prediction)
+        confidence = np.max(prediction) * 100
 
-# Print prediction results
-print(f"Predicted class: {predicted_class}")
-print(f"Probability: {probability}")
+        # Debugging Output for Predictions
+        st.write(f"Raw Prediction Output: {prediction}")
+        st.write(f"Predicted Class Index: {predicted_class}")
+
+        st.write(f"**Prediction:** {class_labels.get(predicted_class, 'Unknown')}")
+        st.write(f"**Confidence:** {confidence:.2f}%")
+    except ValueError as e:
+        st.error(f"Model Prediction Error: {e}")
