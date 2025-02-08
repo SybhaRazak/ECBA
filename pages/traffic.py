@@ -28,10 +28,15 @@ if uploaded_file is not None:
     img_array = np.array(img) / 255.0  # Normalize
     img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
     
-    # Predict
-    prediction = model.predict(img_array)
-    predicted_class = np.argmax(prediction)
-    confidence = np.max(prediction) * 100
+    # Debugging Output
+    st.write(f"Image Shape Before Model: {img_array.shape}")
     
-    st.write(f"**Prediction:** {class_labels.get(predicted_class, 'Unknown')}")
-    st.write(f"**Confidence:** {confidence:.2f}%")
+    try:
+        prediction = model.predict(img_array)
+        predicted_class = np.argmax(prediction)
+        confidence = np.max(prediction) * 100
+
+        st.write(f"**Prediction:** {class_labels.get(predicted_class, 'Unknown')}")
+        st.write(f"**Confidence:** {confidence:.2f}%")
+    except ValueError as e:
+        st.error(f"Model Prediction Error: {e}")
