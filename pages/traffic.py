@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 def load_labels():
     class_labels = {}
     try:
-        file_path = "signnames.csv"  # Replace with your actual file path
+        file_path = "pages/labels.csv"  # Replace with your actual file path
         if os.path.exists(file_path):
             import pandas as pd
             df = pd.read_csv(file_path)
@@ -24,7 +24,7 @@ def load_labels():
 @st.cache_resource
 def load_model():
     try:
-        model_path = 'traffic_sign_model.h5'  # Replace with your actual model path
+        model_path = 'pages/traffic_sign_model.h5'  # Replace with your actual model path
         if os.path.exists(model_path):
             model = tf.keras.models.load_model(model_path)
             return model
