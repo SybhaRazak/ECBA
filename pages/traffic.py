@@ -1,6 +1,7 @@
 import streamlit as st
 import tensorflow as tf
 import numpy as np
+import pandas as pd
 from PIL import Image
 
 # Load the trained model
@@ -11,8 +12,13 @@ def load_model():
 
 model = load_model()
 
-# Define class labels (update based on dataset used)
-class_labels = {0: "Stop", 1: "Yield", 2: "Speed Limit", 3: "No Entry"}  # Example labels
+# Load class labels from CSV
+@st.cache_resource
+def load_labels():
+    labels_df = pd.read_csv("pages/labels.csv")  # Ensure this path is correct
+    return {row["ClassId"]: row["Name"] for _, row in labels_df.iterrows()}  # Adjust column names if needed
+
+class_labels = load_labels()
 
 st.title("Traffic Sign Classification")
 st.write("Upload an image to classify the traffic sign.")
