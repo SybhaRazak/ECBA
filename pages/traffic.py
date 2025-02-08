@@ -13,7 +13,7 @@ def load_labels():
         if os.path.exists(file_path):
             import pandas as pd
             df = pd.read_csv(file_path)
-            class_labels = pd.Series(df.SignName.values, index=df.ClassId).to_dict()
+            class_labels = pd.Series(df.Name.values, index=df.ClassId).to_dict()
         else:
             st.error(f"Class labels CSV file '{file_path}' not found.")
     except Exception as e:
