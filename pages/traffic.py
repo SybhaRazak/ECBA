@@ -14,18 +14,10 @@ def load_labels():
         try:
             df = pd.read_csv(file_path)  # Load CSV into pandas DataFrame
             
-            # Debugging: Print the first few rows of the CSV to verify content
-            st.write("CSV contents:")
-            st.write(df.head())
-
             # Check if the CSV contains 'ClassId' and 'SignName' columns
             if 'ClassId' in df.columns and 'SignName' in df.columns:
                 # Create a dictionary with 'ClassId' as the key and 'SignName' as the value
                 labels_dict = dict(zip(df['ClassId'], df['SignName']))
-                
-                # Debugging: Print the loaded dictionary
-                st.write("Class labels dictionary:")
-                st.write(labels_dict)
                 return labels_dict
             else:
                 st.error("CSV file must contain 'ClassId' and 'SignName' columns.")
@@ -49,16 +41,11 @@ def predict_image(model, image, class_names):
     predicted_class = np.argmax(predictions[0])
     class_probability = predictions[0][predicted_class]
 
-    # Debugging: Check if class_names is a dictionary and print the predicted_class
+    # Ensure class_names is a dictionary
     if isinstance(class_names, dict):
-        st.write("Class labels are loaded correctly.")
+        predicted_class_name = class_names.get(predicted_class, "Unknown Sign")
     else:
-        st.error("Class labels are not loaded as a dictionary.")
-
-    st.write(f"Predicted class index: {predicted_class}")
-
-    # Get the predicted class name from the dictionary
-    predicted_class_name = class_names.get(predicted_class, "Unknown Sign")
+        predicted_class_name = "Unknown Sign"
 
     return predicted_class_name, class_probability, img
 
@@ -90,11 +77,12 @@ if uploaded_file is not None:
     st.write("Processing...")
 
     # Make prediction
-    predicted_class, probability, img = predict_image(model, image, class_labels)
+    if class_labels is not None:
+        predicted_class, probability, img = predict_image(model, image, class_labels)
 
-    # Display prediction results
-    st.write(f"**Predicted Class:** {predicted_class}")
-    st.write(f"**Probability:** {probability:.2f}")
+        # Display prediction results
+        st.write(f"**Predicted Class:** {predicted_class}")
+        st.write(f"**Probability:** {probability:.2f}")
 
-    # Optionally, display the image using Streamlit
-    st.image(img, caption="Processed Image", use_column_width=True)
+        # Optionally, display the image using Streamlit
+        st.image(img, caption="Processed Image", use_column_width=True)
