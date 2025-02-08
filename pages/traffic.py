@@ -29,8 +29,6 @@ if class_labels is not None:
     st.write(class_labels)  # Display the loaded class labels as a dictionary
 
 # Load trained model
-@st.cache_resource
-# Load trained model
 def load_model():
     model_path = "pages/traffic_sign_model.h5"
     if os.path.exists(model_path):
@@ -44,6 +42,30 @@ def load_model():
 
 model = load_model()
 
+# Function to preprocess the image
+def preprocess_image(image):
+    try:
+        # Check if the image is in RGB format, else convert
+        if image.mode != 'RGB':
+            image = image.convert('RGB')
+        
+        # Resize to match model input size (32x32 for example)
+        image = image.resize((32, 32))
+        
+        # Convert to numpy array and normalize
+        image = np.array(image) / 255.0
+        
+        # Check if the image has 3 channels (RGB)
+        if image.shape[-1] != 3:
+            raise ValueError("Image must have 3 channels (RGB)")
+
+        # Add batch dimension (1, 32, 32, 3)
+        image = np.expand_dims(image, axis=0)
+        return image
+
+    except Exception as e:
+        st.error(f"Error in preprocessing image: {e}")
+        return None
 
 # Streamlit UI
 st.title("Traffic Sign Classification")
@@ -58,13 +80,15 @@ if uploaded_file is not None:
     
     # Preprocess and predict
     processed_image = preprocess_image(image)
-    prediction = model.predict(processed_image)
-    predicted_class = np.argmax(prediction, axis=1)[0]  # Get the class with the highest confidence
-    confidence = np.max(prediction)  # Get the confidence of the prediction
-    
-    # Display results
-    sign_name = class_labels.get(predicted_class, "Unknown Sign")
-    st.write(f"**Prediction:** {sign_name}")
-    st.write(f"**Confidence:** {confidence:.2f}")
+    if processed_image is not None:
+        prediction = model.predict(processed_image)
+        predicted_class = np.argmax(prediction, axis=1)[0]  # Get the class with the highest confidence
+        confidence = np.max(prediction)  # Get the confidence of the prediction
+        
+        # Display results
+        sign_name = class_labels.get(predicted_class, "Unknown Sign")
+        st.write(f"**Prediction:** {sign_name}")
+        st.write(f"**Confidence:** {confidence:.2f}")
+
 
 
