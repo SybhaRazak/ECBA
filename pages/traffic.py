@@ -33,9 +33,12 @@ def load_model():
     model_path = "pages/traffic_sign_model.h5"
     if os.path.exists(model_path):
         try:
-            return tf.keras.models.load_model(model_path)
+            model = tf.keras.models.load_model(model_path)
+            print(f"Model loaded successfully: {model_path}")
+            return model
         except Exception as e:
             st.error(f"Error loading model: {e}")
+            print(f"Error loading model: {e}")
     else:
         st.error(f"Model file '{model_path}' not found.")
         return None
@@ -61,6 +64,10 @@ def preprocess_image(image):
 
         # Add batch dimension (1, 32, 32, 3)
         image = np.expand_dims(image, axis=0)
+        
+        # Debugging: Check the shape of the processed image
+        print(f"Processed image shape: {image.shape}")
+
         return image
 
     except Exception as e:
@@ -89,6 +96,7 @@ if uploaded_file is not None:
         sign_name = class_labels.get(predicted_class, "Unknown Sign")
         st.write(f"**Prediction:** {sign_name}")
         st.write(f"**Confidence:** {confidence:.2f}")
+
 
 
 
