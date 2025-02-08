@@ -32,7 +32,7 @@ if class_labels is not None:
 @st.cache_resource
 # Load trained model
 def load_model():
-    model_path = "traffic_sign_model.h5"
+    model_path = "pages/traffic_sign_model.h5"
     if os.path.exists(model_path):
         try:
             return tf.keras.models.load_model(model_path)
