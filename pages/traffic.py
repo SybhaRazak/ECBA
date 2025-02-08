@@ -20,7 +20,7 @@ def load_labels():
         st.error(f"Error loading class labels: {e}")
     return class_labels
 
-# Function to load the model
+# Function to load the model with caching
 @st.cache_resource
 def load_model():
     try:
