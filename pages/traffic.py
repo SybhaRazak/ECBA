@@ -53,22 +53,22 @@ def preprocess_image(image):
         st.error(f"Error during image preprocessing: {e}")
         return None
 
-# Function to make predictions
-def predict_image(model, image, class_names):
+def preprocess_image(image):
     try:
-        processed_image = preprocess_image(image)
-        if processed_image is not None:
-            predictions = model.predict(processed_image)
-            predicted_class = np.argmax(predictions[0])
-            predicted_class_name = class_names.get(predicted_class, "Unknown Sign")
-            class_probability = predictions[0][predicted_class]
-            return predicted_class_name, class_probability, image
-        else:
-            st.error("Image preprocessing failed.")
-            return None, None, None
+        # Resize image to a larger size (e.g., 128x128)
+        image = image.resize((128, 128))  # Resize to match the model input size (128x128 is assumed)
+        img_array = np.array(image)
+        
+        # If the image has only 1 channel (grayscale), we need to convert it to 3 channels
+        if len(img_array.shape) == 2:  # Grayscale image
+            img_array = np.stack([img_array] * 3, axis=-1)
+        
+        img_array = img_array / 255.0  # Normalize to [0, 1]
+        img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
+        return img_array
     except Exception as e:
-        st.error(f"Error during prediction: {e}")
-        return None, None, None
+        st.error(f"Error during image preprocessing: {e}")
+        return None
 
 # Main Streamlit code
 def main():
