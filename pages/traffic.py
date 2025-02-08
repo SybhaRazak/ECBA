@@ -12,7 +12,7 @@ def load_labels():
     try:
         df = pd.read_csv(file_path)
         if 'ClassId' in df.columns and 'SignName' in df.columns:
-            class_dict = dict(zip(df['ClassId'], df['SignName']))
+            class_dict = dict(zip(df['ClassId'], df['Name']))
             return class_dict
         else:
             st.error("CSV file must contain 'ClassId' and 'SignName' columns.")
