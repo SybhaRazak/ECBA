@@ -11,7 +11,7 @@ def load_labels():
     # Load the CSV and check columns
     try:
         df = pd.read_csv(file_path)
-        if 'ClassId' in df.columns and 'SignName' in df.columns:
+        if 'ClassId' in df.columns and 'Name' in df.columns:
             class_dict = dict(zip(df['ClassId'], df['Name']))
             return class_dict
         else:
