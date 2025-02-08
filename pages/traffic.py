@@ -2,9 +2,7 @@ import streamlit as st
 import tensorflow as tf
 import numpy as np
 import pandas as pd
-import collections
 from PIL import Image
-from sklearn.utils.class_weight import compute_class_weight
 
 # Load the trained model
 @st.cache_resource
@@ -21,24 +19,8 @@ def load_labels():
     return {row["ClassId"]: row["Name"] for _, row in labels_df.iterrows()}  # Adjust column names if needed
 
 class_labels = load_labels()
-
-# Display class labels
 st.write("Loaded Class Labels:", class_labels)  # Debugging output
 
-# Check class distribution for training data (debugging)
-# Example y_train, use your actual training labels
-y_train = pd.read_csv("pages/y_train.csv")  # Update with actual path to y_train
-class_distribution = collections.Counter(y_train)
-st.write("Class Distribution:", class_distribution)
-
-# Compute class weights if needed
-class_weights = compute_class_weight('balanced', classes=np.unique(y_train), y=y_train)
-class_weight_dict = {i: class_weights[i] for i in range(len(class_weights))}
-
-# Display class weight dict (optional)
-st.write("Class Weight Dict:", class_weight_dict)
-
-# Traffic Sign Classification
 st.title("Traffic Sign Classification")
 st.write("Upload an image to classify the traffic sign.")
 
@@ -46,7 +28,7 @@ uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "png", "jpeg
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert("RGB")
-    st.image(image, caption="Uploaded Image", use_container_width=True)
+    st.image(image, caption="Uploaded Image", use_column_width=True)
     
     # Get model input shape dynamically
     input_shape = model.input_shape[1:3]  # Extract expected height and width
@@ -62,11 +44,15 @@ if uploaded_file is not None:
     
     try:
         prediction = model.predict(img_array)
+        
+        # Debugging: Check if the model's output is expected
+        st.write(f"Raw Prediction Output: {prediction}")
+        
+        # Get top 3 predictions
         top_3_indices = np.argsort(prediction[0])[-3:][::-1]  # Get top 3 predictions
         top_3_confidences = prediction[0][top_3_indices] * 100
         
-        # Debugging Output for Predictions
-        st.write(f"Raw Prediction Output: {prediction}")
+        # Debugging: Show the top 3 predictions
         st.write(f"Top-3 Predictions:")
         for i in range(3):
             class_id = top_3_indices[i]
@@ -79,7 +65,3 @@ if uploaded_file is not None:
         st.write(f"**Confidence:** {top_3_confidences[0]:.2f}%")
     except ValueError as e:
         st.error(f"Model Prediction Error: {e}")
-
-# Optional: If you want to retrain or test on balanced dataset, you can add this logic
-# Example of training with class weights
-# model.fit(x_train, y_train, epochs=10, batch_size=32, class_weight=class_weight_dict)
