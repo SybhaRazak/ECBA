@@ -1,16 +1,32 @@
+import os
 import streamlit as st
 import tensorflow as tf
 import numpy as np
 import pandas as pd
 from PIL import Image
 
-# Load class labels from label.csv
-@st.cache_data
+# Function to load the CSV file containing the labels
 def load_labels():
-    df = pd.read_csv("labels.csv")  # Ensure the CSV has 'ClassId' and 'SignName' columns
-    return dict(zip(df.ClassId, df.SignName))
+    file_path = "label.csv"  # Ensure this is the correct path to your CSV file
 
+    # Check if the file exists
+    if os.path.exists(file_path):
+        try:
+            df = pd.read_csv(file_path)  # Load CSV into pandas DataFrame
+            return dict(zip(df.ClassId, df.SignName))  # Return as a dictionary
+        except Exception as e:
+            st.error(f"Error loading CSV file: {e}")
+    else:
+        st.error(f"File '{file_path}' not found.")
+        return None
+
+# Load the labels
 class_labels = load_labels()
+
+# If class labels are successfully loaded, display the data
+if class_labels is not None:
+    st.write("Class Labels Loaded:")
+    st.write(class_labels)  # Display the loaded class labels as a dictionary
 
 # Load trained model
 @st.cache_resource
@@ -40,11 +56,12 @@ if uploaded_file is not None:
     # Preprocess and predict
     processed_image = preprocess_image(image)
     prediction = model.predict(processed_image)
-    predicted_class = np.argmax(prediction, axis=1)[0]
-    confidence = np.max(prediction)
+    predicted_class = np.argmax(prediction, axis=1)[0]  # Get the class with the highest confidence
+    confidence = np.max(prediction)  # Get the confidence of the prediction
     
     # Display results
     sign_name = class_labels.get(predicted_class, "Unknown Sign")
     st.write(f"**Prediction:** {sign_name}")
     st.write(f"**Confidence:** {confidence:.2f}")
+
 
