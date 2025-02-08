@@ -39,8 +39,13 @@ def load_model():
 def preprocess_image(image):
     try:
         # Resize image to 64x64 (adjust according to the model input size)
-        image = image.resize((64, 64))  # Resize to match the model input
+        image = image.resize((64, 64))  # Resize to match the model input size (64x64 is assumed)
         img_array = np.array(image)
+        
+        # If the image has only 1 channel (grayscale), we need to convert it to 3 channels
+        if len(img_array.shape) == 2:  # Grayscale image
+            img_array = np.stack([img_array] * 3, axis=-1)
+        
         img_array = img_array / 255.0  # Normalize to [0, 1]
         img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
         return img_array
