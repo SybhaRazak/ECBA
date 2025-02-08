@@ -3,38 +3,17 @@ import numpy as np
 import pandas as pd
 from PIL import Image
 import streamlit as st
+import matplotlib.pyplot as plt
 import os
-import time
 
-# Caching the model loading to avoid reloading it multiple times
-@st.cache_resource
-def load_model():
-    try:
-        model = tf.keras.models.load_model("pages/traffic_sign_model.h5")
-        return model
-    except Exception as e:
-        st.error(f"Error loading the model: {e}")
-        return None
-
-# Caching the image preprocessing to avoid reprocessing the same image
-@st.cache
-def preprocess_image(_image):  # Adding _ to bypass caching issues
-    image = _image.resize((32, 32))  # Resize image to match model input size
-    image = np.array(image) / 255.0  # Normalize pixel values
-    image = np.expand_dims(image, axis=0)  # Add batch dimension
-    return image
-
-# Function to load the CSV file containing the labels
+# Function to load labels from a CSV file
 def load_labels():
-    file_path = "pages/labels.csv"  # Ensure this is the correct path to your CSV file
-
-    # Check if the file exists
+    file_path = "pages/labels.csv"  # Update this with the actual path to your CSV file
     if os.path.exists(file_path):
         try:
-            df = pd.read_csv(file_path)  # Load CSV into pandas DataFrame
-            # Convert the DataFrame to a dictionary
-            class_dict = dict(zip(df['ClassId'], df['Name']))
-            return class_dict
+            df = pd.read_csv(file_path)
+            labels_dict = dict(zip(df['ClassId'], df['Name']))  # Assuming 'ClassId' and 'SignName' columns
+            return labels_dict
         except Exception as e:
             st.error(f"Error loading CSV file: {e}")
             return None
@@ -42,50 +21,69 @@ def load_labels():
         st.error(f"File '{file_path}' not found.")
         return None
 
-# Function to predict the image
+# Function to preprocess the image
+@st.cache
+def preprocess_image(_image):  # Adding _ to bypass caching issues
+    image = _image.resize((64, 64))  # Resize image to a size that the model expects, e.g., 64x64
+    image = np.array(image) / 255.0  # Normalize pixel values to [0, 1]
+    image = np.expand_dims(image, axis=0)  # Add batch dimension
+    return image
+
+# Function to predict the traffic sign
 def predict_image(model, image_path, class_names):
     # Load and preprocess the image
-    img = Image.open(image_path)
-    img = preprocess_image(img)
+    img = Image.open(image_path)  # Load the image
+    img = preprocess_image(img)  # Preprocess the image
+    
+    try:
+        # Make predictions
+        predictions = model.predict(img)
+        predicted_class = np.argmax(predictions[0])
+        class_probability = predictions[0][predicted_class]
+        predicted_class_name = class_names.get(predicted_class, "Unknown Sign")
+        
+        return predicted_class_name, class_probability, img
 
-    # Make predictions
-    predictions = model.predict(img)
-    predicted_class = np.argmax(predictions[0])
-    class_probability = predictions[0][predicted_class]
+    except Exception as e:
+        st.error(f"Error during prediction: {e}")
+        return None, None, None
 
-    # Get the predicted class name
-    predicted_class_name = class_names.get(predicted_class, "Unknown Sign")
+# Function to load the model
+@st.cache_resource
+def load_model():
+    try:
+        # Assuming the model is in the current directory and named 'traffic_sign_model.h5'
+        model = tf.keras.models.load_model("pages/traffic_sign_model.h5")
+        return model
+    except Exception as e:
+        st.error(f"Error loading model: {e}")
+        return None
 
-    return predicted_class_name, class_probability, img
+# Main Streamlit interface
+st.title("Traffic Sign Recognition")
+st.write("Upload an image of a traffic sign and get the prediction.")
 
-# Load model and class labels
+# Load model and labels
 model = load_model()
 class_labels = load_labels()
 
-if model and class_labels:
-    # Upload the image
-    uploaded_image = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
+if model is None or class_labels is None:
+    st.stop()
 
-    if uploaded_image is not None:
-        # Display the uploaded image
-        st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
+# Upload image
+uploaded_image = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
-        # Perform prediction
-        try:
-            start_time = time.time()
-            predicted_class, probability, img = predict_image(model, uploaded_image, class_labels)
-            end_time = time.time()
+if uploaded_image is not None:
+    # Show the uploaded image
+    img = Image.open(uploaded_image)
+    st.image(img, caption="Uploaded Image.", use_column_width=True)
 
-            # Display the prediction results
-            st.write(f"Prediction: {predicted_class}")
-            st.write(f"Probability: {probability:.2f}")
-            st.write(f"Prediction took: {end_time - start_time:.2f} seconds")
+    # Predict the class of the uploaded image
+    predicted_class, probability, img = predict_image(model, uploaded_image, class_labels)
 
-            # Display the image
-            st.image(img, caption="Processed Image", use_column_width=True)
-
-        except Exception as e:
-            st.error(f"Error during prediction: {e}")
-
-else:
-    st.error("Failed to load model or class labels.")
+    if predicted_class is not None:
+        # Display prediction results
+        st.write(f"Predicted Class: {predicted_class}")
+        st.write(f"Prediction Probability: {probability:.2f}")
+    else:
+        st.error("Prediction failed.")
