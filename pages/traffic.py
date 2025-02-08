@@ -23,8 +23,12 @@ if uploaded_file is not None:
     image = Image.open(uploaded_file).convert("RGB")
     st.image(image, caption="Uploaded Image", use_column_width=True)
     
+    # Get model input shape dynamically
+    input_shape = model.input_shape[1:3]  # Extract expected height and width
+    st.write(f"Expected Model Input Shape: {input_shape}")
+    
     # Preprocess image
-    img = image.resize((32, 32))  # Update with actual model input size
+    img = image.resize(input_shape)  # Resize to model's expected input
     img_array = np.array(img) / 255.0  # Normalize
     img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
     
