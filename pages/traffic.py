@@ -7,7 +7,7 @@ from PIL import Image
 # Load class labels from label.csv
 @st.cache_data
 def load_labels():
-    df = pd.read_csv("label.csv")  # Ensure the CSV has 'ClassId' and 'SignName' columns
+    df = pd.read_csv("labels.csv")  # Ensure the CSV has 'ClassId' and 'SignName' columns
     return dict(zip(df.ClassId, df.SignName))
 
 class_labels = load_labels()
