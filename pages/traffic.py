@@ -4,7 +4,7 @@ import streamlit as st
 
 # Function to load the CSV file containing the labels
 def load_labels():
-    file_path = "label.csv"  # Ensure this is the correct path to your CSV file
+    file_path = "labels.csv"  # Ensure this is the correct path to your CSV file
 
     # Check if the file exists
     if os.path.exists(file_path):
