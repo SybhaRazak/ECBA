@@ -3,7 +3,7 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 from PIL import Image
-import os  # Import the os module to check file existence
+import os
 
 # Function to load the CSV file containing the labels
 def load_labels():
@@ -15,7 +15,8 @@ def load_labels():
             df = pd.read_csv(file_path)  # Load CSV into pandas DataFrame
             # Ensure the CSV contains the correct columns and create a dictionary
             if 'ClassId' in df.columns and 'SignName' in df.columns:
-                return dict(zip(df['ClassId'], df['SignName']))  # Return a dictionary of ClassId -> SignName
+                labels_dict = dict(zip(df['ClassId'], df['SignName']))  # Create dictionary
+                return labels_dict
             else:
                 st.error("CSV file must contain 'ClassId' and 'SignName' columns.")
                 return None
@@ -36,6 +37,14 @@ def predict_image(model, image, class_names):
     predictions = model.predict(img_array)
     predicted_class = np.argmax(predictions[0])
     class_probability = predictions[0][predicted_class]
+
+    # Debugging: Check if class_names is a dictionary and print the predicted_class
+    if isinstance(class_names, dict):
+        st.write("Class labels are loaded correctly.")
+    else:
+        st.error("Class labels are not loaded as a dictionary.")
+
+    st.write(f"Predicted class index: {predicted_class}")
 
     # Get the predicted class name from the dictionary
     predicted_class_name = class_names.get(predicted_class, "Unknown Sign")
