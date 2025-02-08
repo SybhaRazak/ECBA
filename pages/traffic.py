@@ -14,10 +14,18 @@ def load_labels():
         try:
             df = pd.read_csv(file_path)  # Load CSV into pandas DataFrame
             
+            # Debugging: Print the first few rows of the CSV to verify content
+            st.write("CSV contents:")
+            st.write(df.head())
+
             # Check if the CSV contains 'ClassId' and 'SignName' columns
             if 'ClassId' in df.columns and 'SignName' in df.columns:
                 # Create a dictionary with 'ClassId' as the key and 'SignName' as the value
                 labels_dict = dict(zip(df['ClassId'], df['SignName']))
+                
+                # Debugging: Print the loaded dictionary
+                st.write("Class labels dictionary:")
+                st.write(labels_dict)
                 return labels_dict
             else:
                 st.error("CSV file must contain 'ClassId' and 'SignName' columns.")
