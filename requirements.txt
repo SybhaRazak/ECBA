@@ -6,3 +6,4 @@ streamlit-drawable-canvas
 numpy
 Pillow
 tensorflow
+scikit-learn
