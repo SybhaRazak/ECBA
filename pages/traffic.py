@@ -18,8 +18,8 @@ def load_model():
 
 # Caching the image preprocessing to avoid reprocessing the same image
 @st.cache
-def preprocess_image(image):
-    image = image.resize((32, 32))  # Resize image to match model input size
+def preprocess_image(_image):  # Adding _ to bypass caching issues
+    image = _image.resize((32, 32))  # Resize image to match model input size
     image = np.array(image) / 255.0  # Normalize pixel values
     image = np.expand_dims(image, axis=0)  # Add batch dimension
     return image
@@ -33,7 +33,7 @@ def load_labels():
         try:
             df = pd.read_csv(file_path)  # Load CSV into pandas DataFrame
             # Convert the DataFrame to a dictionary
-            class_dict = dict(zip(df['ClassId'], df['Name']))
+            class_dict = dict(zip(df['ClassId'], df['SignName']))
             return class_dict
         except Exception as e:
             st.error(f"Error loading CSV file: {e}")
