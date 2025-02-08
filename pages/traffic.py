@@ -3,6 +3,7 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 from PIL import Image
+import os
 
 # Function to load the CSV file containing the labels
 def load_labels():
